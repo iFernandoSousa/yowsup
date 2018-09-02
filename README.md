@@ -24,6 +24,16 @@ Yowsup is a Python library that enables you to build applications which use the 
  - Required python packages: python-dateutil, libmagickwand-dev
  - Required python packages for end-to-end encryption: protobuf, pycrypto, python-axolotl-curve25519
  - Required python packages for yowsup-cli: argparse, readline (or pyreadline for windows), pillow (for sending images)
+ 
+ 
+ - Required for send media of type Audio and Video
+ - For linux:  
+    ```
+    sudo apt-get update
+    sudo apt-get install ffmpeg
+    pip install av
+    ``` 
+
 
 Install using setup.py to pull all python dependencies
 
