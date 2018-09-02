@@ -7,13 +7,14 @@ from yowsup.structs import ProtocolTreeNode
 <category name="status" value="none">
 <category name="profile" value="none">
 <category name="last" value="none">
+<category name="readreceipts" value="none">
 </category>
 </privacy>
 </iq>
 '''
 
 class SetPrivacyIqProtocolEntity(IqProtocolEntity):
-    NAMES = ["status", "profile", "last"]
+    NAMES = ["status", "profile", "last", "readreceipts"]
     VALUES = ["all", "contacts", "none"]
     XMLNS = "privacy"
 
