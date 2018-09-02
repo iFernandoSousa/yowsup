@@ -6,8 +6,9 @@ logger = logging.getLogger(__name__)
 class ProtocolEntity(object):
     __ID_GEN = 0
 
-    def __init__(self, tag):
+    def __init__(self, tag, _id = None):
         self.tag = tag
+        self._id = _id
 
     def getTag(self):
         return self.tag
@@ -33,6 +34,9 @@ class ProtocolEntity(object):
     @staticmethod
     def fromProtocolTreeNode(self, protocolTreeNode):
         pass
+
+    def setId(self, _id):
+        self._id = _id
 
 
 class ProtocolEntityTest(object):
