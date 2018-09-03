@@ -14,6 +14,9 @@ class IncomingAckProtocolEntity(AckProtocolEntity):
     def setIncomingData(self, _from, timestamp):
         self._from = _from
         self.timestamp = timestamp
+
+    def getFrom(self, full = True):
+        return self._from if full else self._from.split('@')[0]
     
     def toProtocolTreeNode(self):
         node = super(IncomingAckProtocolEntity, self).toProtocolTreeNode()
