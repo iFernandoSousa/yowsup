@@ -31,6 +31,12 @@ Yowsup is a Python library that enables you to build applications which use the 
     ```
     sudo apt-get update
     sudo apt-get install ffmpeg
+    
+    sudo apt-get install -y python-dev python-virtualenv pkg-config
+    sudo sudo apt-get install -y \
+    libavformat-dev libavcodec-dev libavdevice-dev \
+    libavutil-dev libswscale-dev libavresample-dev
+    
     pip install av
     ``` 
 
