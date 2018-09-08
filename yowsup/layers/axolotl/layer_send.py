@@ -407,7 +407,8 @@ class AxolotlSendLayer(AxolotlBaseLayer):
         document_message.file_sha256 = binascii.unhexlify(mediaNode["filehash"].encode())
         document_message.file_length = int(mediaNode["size"])
         document_message.media_key = binascii.unhexlify(mediaNode["anu"])
-        document_message.page_count = int(mediaNode["pageCount"]);
+        document_message.page_count = int(mediaNode["pageCount"]) if mediaNode["pageCount"] else 1
+
         if "pdf" in mediaNode["mimetype"]:
             document_message.jpeg_thumbnail = mediaNode.getData()
         else:
