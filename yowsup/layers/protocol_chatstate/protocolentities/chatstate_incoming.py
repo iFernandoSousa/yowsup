@@ -20,6 +20,9 @@ class IncomingChatstateProtocolEntity(ChatstateProtocolEntity):
 
     def setIncomingData(self, _from):
         self._from = _from
+
+    def getFrom(self, full = True):
+        return self._from if full else self._from.split('@')[0]
     
     def toProtocolTreeNode(self):
         node = super(IncomingChatstateProtocolEntity, self).toProtocolTreeNode()
