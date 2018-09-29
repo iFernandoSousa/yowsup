@@ -5,6 +5,8 @@ import hashlib
 import base64
 import os
 from yowsup.common.tools import WATools
+
+
 class RequestUploadIqProtocolEntity(IqProtocolEntity):
     '''
     <iq to="s.whatsapp.net" type="set" xmlns="w:m">
@@ -20,22 +22,25 @@ class RequestUploadIqProtocolEntity(IqProtocolEntity):
 
     TYPES_MEDIA = (MEDIA_TYPE_AUDIO, MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_DOCUMENT)
 
-    def __init__(self, mediaType, b64Hash = None, size = None, origHash = None, filePath = None):
-        super(RequestUploadIqProtocolEntity, self).__init__("w:m", _type = "set", to = YowConstants.WHATSAPP_SERVER)
+    def __init__(self, mediaType, b64Hash=None, size=None, origHash=None, filePath=None, _id=None):
+        super(RequestUploadIqProtocolEntity, self).__init__("w:m", _id=_id, _type="set",
+                                                            to=YowConstants.WHATSAPP_SERVER)
 
-        assert (b64Hash and size) or filePath, "Either specify hash and size, or specify filepath and let me generate the rest"
+        assert (
+                           b64Hash and size) or filePath, "Either specify hash and size, or specify filepath and let me generate the rest"
 
         if filePath:
-            assert os.path.exists(filePath), "Either specified path does not exist, or yowsup doesn't have permission to read: %s" % filePath
+            assert os.path.exists(
+                filePath), "Either specified path does not exist, or yowsup doesn't have permission to read: %s" % filePath
             b64Hash = self.__class__.getFileHashForUpload(filePath)
 
             size = os.path.getsize(filePath)
 
-
         self.setRequestArguments(mediaType, b64Hash, size, origHash)
 
-    def setRequestArguments(self, mediaType, b64Hash, size, origHash = None):
-        assert mediaType in self.__class__.TYPES_MEDIA, "Expected media type to be in %s, got %s" % (self.__class__.TYPES_MEDIA, mediaType)
+    def setRequestArguments(self, mediaType, b64Hash, size, origHash=None):
+        assert mediaType in self.__class__.TYPES_MEDIA, "Expected media type to be in %s, got %s" % (
+        self.__class__.TYPES_MEDIA, mediaType)
         self.mediaType = mediaType
         self.b64Hash = b64Hash
         self.size = int(size)
@@ -69,7 +74,8 @@ class RequestUploadIqProtocolEntity(IqProtocolEntity):
 
     @staticmethod
     def fromProtocolTreeNode(node):
-        assert node.getAttributeValue("type") == "set", "Expected set as iq type in request upload, got %s" % node.getAttributeValue("type")
+        assert node.getAttributeValue(
+            "type") == "set", "Expected set as iq type in request upload, got %s" % node.getAttributeValue("type")
         entity = IqProtocolEntity.fromProtocolTreeNode(node)
         entity.__class__ = RequestUploadIqProtocolEntity
         mediaNode = node.getChild("encr_media")
